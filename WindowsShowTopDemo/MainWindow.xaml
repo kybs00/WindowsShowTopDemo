@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WindowsShowTopDemo"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" 
-        Topmost="True">
+        ShowInTaskbar="True" Topmost="True">
     <Grid>
         <Border Height="30" Background="LightGray" VerticalAlignment="Top">
             <Button Width="60" HorizontalAlignment="Right" Content="关闭" Click="ButtonBase_OnClick"></Button>

@@ -67,7 +67,6 @@ namespace WindowsShowTopDemo
             // 设置窗口样式为工具窗口, 不在任务栏显示
             exStyle |= WS_EX_TOOLWINDOW;
             SetWindowLong(hWnd, GWL_EXSTYLE, exStyle);
-
             //二次设置任务栏不显示
             ShowInTaskbar = false;
         }
@@ -82,7 +81,6 @@ namespace WindowsShowTopDemo
             // 设置窗口样式为工具窗口, 不在任务栏显示
             exStyle |= WS_EX_TOOLWINDOW;
             SetWindowLong(hWnd, GWL_EXSTYLE, exStyle);
-
             //二次设置任务栏不显示
             ShowInTaskbar = false;
         }

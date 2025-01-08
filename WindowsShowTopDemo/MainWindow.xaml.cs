@@ -60,14 +60,13 @@ namespace WindowsShowTopDemo
         public void SetTopmost()
         {
             IntPtr hWnd = _hWnd;
+            // 将窗口设置为顶层窗口
+            SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
 
             int exStyle = GetWindowLong(hWnd, GWL_EXSTYLE);
             // 设置窗口样式为工具窗口, 不在任务栏显示
             exStyle |= WS_EX_TOOLWINDOW;
             SetWindowLong(hWnd, GWL_EXSTYLE, exStyle);
-
-            // 将窗口设置为顶层窗口
-            SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
 
             //二次设置任务栏不显示
             ShowInTaskbar = false;
@@ -76,13 +75,13 @@ namespace WindowsShowTopDemo
         {
             IntPtr hWnd = _hWnd;
 
+            // 将窗口设置为非顶层窗口
+            SetWindowPos(hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+
             int exStyle = GetWindowLong(hWnd, GWL_EXSTYLE);
             // 设置窗口样式为工具窗口, 不在任务栏显示
             exStyle |= WS_EX_TOOLWINDOW;
             SetWindowLong(hWnd, GWL_EXSTYLE, exStyle);
-
-            // 将窗口设置为非顶层窗口
-            SetWindowPos(hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
 
             //二次设置任务栏不显示
             ShowInTaskbar = false;

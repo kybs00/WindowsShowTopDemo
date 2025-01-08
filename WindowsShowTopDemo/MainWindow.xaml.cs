@@ -27,19 +27,19 @@ namespace WindowsShowTopDemo
         {
             InitializeComponent();
 
-            //// 创建一个隐藏窗口
-            //_hiddenWindow = new Window
-            //{
-            //    Width = 0,
-            //    Height = 0,
-            //    ShowInTaskbar = false,
-            //    WindowStyle = WindowStyle.None // 确保不会显示在任务栏
-            //};
+            // 创建一个隐藏窗口
+            _hiddenWindow = new Window
+            {
+                Width = 0,
+                Height = 0,
+                ShowInTaskbar = false,
+                WindowStyle = WindowStyle.None // 确保不会显示在任务栏
+            };
 
-            //_hiddenWindow.Show();
+            _hiddenWindow.Show();
 
-            //// 设置实际窗口的 Owner
-            //this.Owner = _hiddenWindow;
+            // 设置实际窗口的 Owner
+            this.Owner = _hiddenWindow;
             //当前登录的用户变化
             SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
             Loaded += MainWindow_Loaded;
@@ -50,7 +50,8 @@ namespace WindowsShowTopDemo
             SetWindowStyles(this);
         }
         const int GWL_EXSTYLE = -20;
-        const int WS_EX_TOOLWINDOW = 0x00000080;
+        const int WS_EX_TOOLWINDOW = 0x00000080; // 不在任务栏显示
+        const int WS_EX_TOPMOST = 0x00000008; // 置顶窗口
 
         const uint SWP_NOSIZE = 0x0001;
         const uint SWP_NOMOVE = 0x0002;
@@ -76,16 +77,15 @@ namespace WindowsShowTopDemo
             IntPtr hWnd = helper.Handle;
 
             int exStyle = GetWindowLong(hWnd, GWL_EXSTYLE);
-
             // 设置窗口样式为工具窗口, 不在任务栏显示
             exStyle |= WS_EX_TOOLWINDOW;
+            exStyle &= ~WS_EX_TOPMOST; // 确保不是普通置顶
             SetWindowLong(hWnd, GWL_EXSTYLE, exStyle);
 
             // 将窗口设置为顶层窗口
             SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
 
-            // 尝试将窗口置于所有窗口之上
-            SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+            window.ShowInTaskbar = false;
         }
         private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
         {
